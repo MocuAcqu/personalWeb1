@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+    <head>
+        <meta charset="utf-8">
+        <title>鈺婷 personal wedsite</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="個人介紹網站" name="keywords">
+        <meta content="這是關於邱鈺婷的介紹網站" name="description">
+
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon">
+
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@400;700&family=Poppins&display=swap" rel="stylesheet"> 
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+Mono+TC:wght@300;400;700&display=swap" rel="stylesheet">
+
+
+        <!-- Font Awesome -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+
+        <!-- Libraries Stylesheet -->
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+
+    </head>
+
+    <body data-spy="scroll" data-target=".navbar" data-offset="51">
+        <div class="wrapper">
+            <div class="sidebar">
+                <div class="sidebar-text d-flex flex-column h-100 justify-content-center text-center">
+                    <img class="w-100 img-fluid mb-4" src="img/192784.jpg" alt="Image">
+                    <h1 class="mt-2">邱鈺婷</h1>
+                    <div class="mb-4" style="height: 22px;">
+                        <h4 class="typed-text-output d-inline-block text-body"></h4>
+                        <div class="typed-text d-none">勇於嘗試, 積極主動, 學習力強, 善於溝通</div>
+                    </div>
+                    <div class="d-flex justify-content-center mt-auto mb-3">
+                        <a class="mx-2" href="https://www.facebook.com/profile.php?id=100022319948203"><i class="fab fa-facebook-f"></i></a>
+                        <a class="mx-2" href="https://www.linkedin.com/in/yu-ting-ciou/"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="mx-2" href="https://www.instagram.com/mocu_acqu?igsh=MWQwbmQ0azVnejVuag=="><i class="fab fa-instagram"></i></a>
+                        <a class="mx-2" href="https://youtube.com/@mocu?si=K_4x7Y9ZX47ruwoP"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <div class="d-flex align-items-end justify-content-between">
+                        <a href="https://drive.google.com/file/d/12-EfFHFvfgR0oyUkDh8C6BEIxpgEqYaC/view?usp=drive_link" class="btn btn-block border-right">Download 履歷</a>
+                        <a href="#" class="btn btn-block btn-scroll">Contact Me</a>
+                    </div>
+                </div>
+                <div class="sidebar-icon d-flex flex-column h-100 justify-content-center text-right">
+                    <i class="fas fa-2x fa-angle-double-right text-primary"></i>
+                </div>
+            </div>
+        
+            <!-- 左邊側欄導航 -->
+        <nav class="sidebar-left">
+            
+            <div class=text-center>
+                <i class="fa fa-2x fa-solid fa-paper-plane"></i>
+                <p></p>
+            </div>
+            <a href="#section1" class="btn-scroll" >About Me</a>
+            <a href="#section2" class="btn-scroll" >活動事蹟</a>
+            <a href="#section3" class="btn-scroll" >工作經驗</a>
+            <a href="#section4"  class="btn-scroll">個人優勢</a>
+            <a href="#section5"  class="btn-scroll">生活剪影</a>
+        </nav>
+            <!-- 左邊側欄導航 END -->
+
+        <div class="vertical-text">
+            <span></span>
+            <span>今天天氣好嗎</span>
+            <span></span>
+            <span>希望是個晴天</span>
+            <span></span>
+            
+        </div>
+
+        <!--天氣-->
+        <div id="weather-containerr">
+            <h2 class="wheatherword">Taipei</h1>
+        </div>
+        <div id="weather-container">
+            <img id="weather-icon" src="" alt="Weather Icon" class="img-weather ">
+            <div id="temperature">--°C</div>
+            <div id="description">載入中...</div>
+        </div>
+        <script>
+            // 設置 API 資訊
+            const apiKey = '098d6c1474520701a35c4a2a432c259c';  // 請替換為你的 API key
+            const lat = 25.0330;            // 緯度，例如台北市
+            const lon = 121.5654;           // 經度，例如台北市
+    
+            // 建立 API URL，使用 lang=zh_tw 參數來顯示繁體中文
+            const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=zh_tw`;
+    
+            // 發送 GET 請求
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // 取得氣象資料
+                    const temperature = data.main.temp;
+                    const description = data.weather[0].description;
+                    const iconCode = data.weather[0].icon;
+                    const iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`; // 取得氣象圖示 URL
+    
+                    // 更新網頁內容
+                    document.getElementById('temperature').textContent = `${temperature}°C`;
+                    document.getElementById('description').textContent = description;
+                    document.getElementById('weather-icon').src = iconUrl;
+                })
+                .catch(error => {
+                    console.error('Error fetching weather data:', error);
+                    document.getElementById('description').textContent = '載入天氣資料錯誤';
+                });
+        </script>
+        <!--天氣 END-->
+
+            <div class="content">
+                <!-- About Start -->
+                <img class="w-100 img-fluid mb-9" src="img/195628.jpg" alt="Image">
+
+                <section id="section1">
+                <div class="container bg-white py-5">
+                    <div class="row px-3">
+                        <div class="col-12">
+                            <h2 class="title position-relative pb-2 mb-4">About Me</h2>
+                        </div>
+                        <div class="col-12">
+                            <p>我是一個積極主動、負責任，且學習能力強的人，經常在團體、活動中擔任領導者的角色，也參加過許多表演活動，不畏懼展現自我能力。目前正在努力接觸各種學習機會、擴展視野，並且想用自己所能帶給更多人幫助。</p>
+                            <div class="row">
+                                <div class="col-sm-6 py-1">
+                                    <h5 class="d-inline text-primary">Name:</h5> 邱鈺婷
+                                </div>
+                                <div class="col-sm-6 py-1">
+                                    <h5 class="d-inline text-primary">Birthday:</h5> 15 April 2005
+                                </div>
+                                <div class="col-sm-6 py-1">
+                                    <h5 class="d-inline text-primary">School:</h5> 臺灣師範大學
+                                </div>
+                                <div class="col-sm-6 py-1">
+                                    <h5 class="d-inline text-primary">Department:</h5> 科技應用與人力資源學系
+                                </div>
+                                <div class="col-sm-6 py-1">
+                                    <h5 class="d-inline text-primary">Phone:</h5> 0901422997
+                                </div>
+                                <div class="col-sm-6 py-1">
+                                    <h5 class="d-inline text-primary">Email:</h5> a0901422997@gmial.com
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </section>
+                <!-- About End -->
+
+
+               <!-- 活動事蹟 Start -->
+               <section id="section2">
+               <div class="container bg-white py-5">
+                <div class="row px-3">
+                    <div class="col-12">
+                        <h2 class="title position-relative pb-2 mb-4">活動事蹟</h2>
+                    </div>
+                    <div class="col-12">
+                        <div class="owl-carousel testimonial-carousel">
+                           
+                            <!--派緹甜點社-->
+                            <div class="text-left">
+                                <h2 class="text-act">甜點社社長</h2>                               
+                                <p>我正在經營學校的派緹甜點社，其中工作內容包含行政處理、課程規劃、活動舉辦、社群媒體經營、美宣製作、公關交流、內部管理等，這累積了我領導管理、溝通協調的能力，我的我希望可以藉由我的積極努力，讓社員產生簡單的幸褔感，喜歡甜點社這個地方。</p>
+                                <div class="d-flex align-items-center">
+                                    <img class="img-fluid " src="img/0001.png" style="width: 320px; height: 180px; margin:10px;">
+                                    <img class="img-fluid " src="img/193438.jpg" style="width: 320px; height: 180px; margin:10px;">
+                                </div>
+                            </div>
+
+                            <!--高屏之夜-->
+                            <div class="text-left">
+                                <h2 class="text-act">高屏鄉友會</h2>
+                                <p>我目前擔任「文宣股股長」，協助手冊製作、會服訂製等文宣品製造。過去我還曾擔任「返鄉服務營隊」的美輔隊員，帶領國小生參與活動、概念學習。也曾參與過「高屏之夜」的大劇表演，在晚會戲劇中擔任主角，累積情緒理解與表達能力的經驗。</p>
+                                <div class="d-flex align-items-center">
+                                    <img class="img-fluid " src="img/195395.jpg" style="width: 320px; height: 180px; margin:10px;">
+                                    <img class="img-fluid " src="img/195631.jpg" style="width: 320px; height: 180px; margin:10px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+               </section>
+               <!-- 活動事蹟 End -->
+
+
+                <!-- 工作經驗 Start -->
+                <section id="section3">
+                <div class="container bg-white py-5">
+                    <div class="row px-3">
+                        <div class="col-12">
+                            <h2 class="title position-relative pb-2 mb-4">工作經驗</h2>
+                        </div>
+                        <div class="col-12">
+                            <div class="border-left border-primary pt-2 pl-4 ml-2">
+                                <div class="position-relative mb-4">
+                                    <i class="fa fa-arrow-right text-primary position-absolute" style="top: 3px; left: -24px;"></i>
+                                    <h5 class="mb-1">教育部因材網-影片剪輯</h5>
+                                    <p class="mb-2">學校工讀 | <small>2023/10 - now</small></p>
+                                    <p>使用CapCut協助學校老師後製教學影片，工作內容包含剪輯、上字幕、修改圖片，另外也有協助製作一些投影片中需要使用的圖像、圖表。</p>
+                                </div>
+                                <div class="position-relative mb-4">
+                                    <i class="fa fa-arrow-right text-primary position-absolute" style="top: 3px; left: -24px;"></i>
+                                    <h5 class="mb-1">彌生軒-外場服務生</h5>
+                                    <p class="mb-2">餐飲暑期工讀 | <small>2024/7 - 2024/9</small></p>
+                                    <p>在暑假期間，跳脫自己的舒適圈，嘗試以服務者的視角了解顧客與工作者的需求與想法，並累積與人溝通的經驗與方式，並增進自己的反應與判斷力。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </section>
+                <!-- 工作經驗 End -->
+
+
+                <!-- 個人優勢 Start -->
+                <section id="section4">
+                <div class="container bg-white pt-5 pb-3">
+                    <div class="row px-3">
+                        <div class="col-12">
+                            <h2 class="title position-relative pb-2 mb-4">個人優勢</h2>
+                        </div>
+                        <div class="col-md-6 service-item text-center mb-3">
+                            <i class="fa fa-2x fa-comments mx-auto mb-4"></i>
+                            <h5 class="mb-2 text-LX">溝通表達</h5>
+                            <p>我是一個願意傾聽，並去思考適合彼此的溝通方法的人，在需要表達己見的場合，我也會樂於分享我的想法、與人交流。</p>
+                        </div>
+                        <div class="col-md-6 service-item text-center mb-3">
+                            <i class="fa fa-2x fa-solid fa-brain mx-auto mb-4"></i>
+                            <h5 class="mb-2 text-LX">學習力強</h5>
+                            <p>我對於新事物、新環境的適應力強，能夠快速的學習與習慣，或是將某項目的內容快速培養成我能上手的方式。</p>
+                        </div>
+                        <div class="col-md-6 service-item text-center mb-3">
+                            <i class="fa fa-2x fa-solid fa-thumbs-up mx-auto mb-4"></i>
+                            <h5 class="mb-2 text-LX">積極主動</h5>
+                            <p>我是個願意挑戰未知的人，願意爭取機會去做嘗試，在許多場合也會主動擔任領導者，讓事物能被順利運作。</p>
+                        </div>
+                        <div class="col-md-6 service-item text-center mb-3">
+                            <i class="fa fa-2x fa-solid fa-people-arrows mx-auto mb-4"></i>
+                            <h5 class="mb-2 text-LX">換位思考</h5>
+                            <p>從不同角度的思考，可以理解更多可能性與對方真正的需求，在團隊合作時，我能去接納每個人的想法，並站在對方立場看事情。</p>
+                        </div>
+                    </div>
+                </div>
+                </section>
+                <!-- 個人優勢 End -->
+
+                <!-- 生活剪影 Start -->
+               <section id="section5">
+                <div class="container bg-white py-5">
+                 <div class="row px-3">
+                     <div class="col-12">
+                         <h2 class="title position-relative pb-2 mb-4">生活剪影</h2>
+                     </div>
+                     <div class="col-12">
+                         <div class="owl-carousel testimonial-carousel">
+                            
+                             <div class="text-left">
+                                 <div class="d-flex align-items-center">
+                                     <img class="img-fluid " src="img/195472.jpg" style="width: 320px; height: 180px; margin:10px;">
+                                     <img class="img-fluid " src="img/195475.jpg" style="width: 320px; height: 180px; margin:10px;">
+                                 </div>
+                             </div>
+                             <div class="text-left">
+                                <div class="d-flex align-items-center">
+                                    <img class="img-fluid " src="img/195473.jpg" style="width: 320px; height: 180px; margin:10px;">
+                                    <img class="img-fluid " src="img/195474.jpg" style="width: 320px; height: 180px; margin:10px;">
+                                </div>
+                            </div>
+                            <div class="text-left">
+                                <div class="d-flex align-items-center">
+                                    <img class="img-fluid " src="img/195471.jpg" style="width: 320px; height: 180px; margin:10px;">
+                                    <img class="img-fluid " src="img/195470.jpg" style="width: 320px; height: 180px; margin:10px;">
+                                </div>
+                            </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+                </section>
+                <!-- 生活剪影 End -->
+                
+                <!-- Footer Start -->
+                <div class="container-fluid bg-white pt-5 px-0">
+                    <div class="container bg-dark text-light text-center py-5">
+                        <div class="d-flex justify-content-center mb-4">                    
+                            <a class="btn btn-outline-primary btn-square mr-2" href="https://www.facebook.com/profile.php?id=100022319948203"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-primary btn-square mr-2" href="https://www.linkedin.com/in/yu-ting-ciou/"><i class="fab fa-linkedin-in"></i></a>
+                            <a class="btn btn-outline-primary btn-square" href="https://www.instagram.com/mocu_acqu?igsh=MWQwbmQ0azVnejVuag=="><i class="fab fa-instagram"></i></a>
+                        </div>
+                        <p class="m-0">&copy; All Rights Reserved. Designed by <a href="https://htmlcodex.com">HTML Codex</a></p>
+                    </div>
+                </div>
+                <!-- Footer End -->
+            </div>
+        </div>
+        
+        <!-- Back to Top -->
+        <a href="#" class="back-to-top"><i class="fa fa-angle-double-up"></i></a>
+        
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/typed/typed.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/isotope/isotope.pkgd.min.js"></script>
+        <script src="lib/lightbox/js/lightbox.min.js"></script>
+
+        <!-- Contact Javascript File -->
+        <script src="mail/jqBootstrapValidation.min.js"></script>
+        <script src="mail/contact.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+        
+
+    </body>
+</html>
